@@ -9,7 +9,7 @@ import { EventoEnum } from './categoria.interface';
 export class Ranking extends mongoose.Document {
 
     @Prop({type: mongoose.Schema.Types.ObjectId})
-    desafios: string;
+    desafio: string;
 
     @Prop({type: mongoose.Schema.Types.ObjectId})
     jogador: string;

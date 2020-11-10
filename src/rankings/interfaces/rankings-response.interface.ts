@@ -1,6 +1,7 @@
 export interface RankingResponse {
     jogador?: string;
     posicao?: string;
+    pontuacao?: number;
     historicoPartidas?: Historico; 
 }
 
