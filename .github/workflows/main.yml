@@ -4,6 +4,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy to cloud foundry
     steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          repository: dragaoazuljr/micro-rankings@master 
       - name: Deploy
         id: deploy
         uses: dragaoazuljr/micro-rankings@master
