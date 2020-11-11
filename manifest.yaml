@@ -1,0 +1,9 @@
+---
+    applications:
+        - name: api-micro-rankings-backend-sr
+          path: dist
+          instances: 1
+          memory: 128MB
+          disk_qouta: 1GB
+          command: node main
+          health-check-type: none
