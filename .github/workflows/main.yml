@@ -4,12 +4,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy to cloud foundry
     steps:
-      - name: Deploy
-        id: deploy
-        uses: dragaoazuljr/micro-rankings@master
-        with: 
-          cfUrl: "https://api.cf.us10.hana.ondemand.com"
-          cfUser: "danillo.moraes@outlook.com"
-          cfPassword: '$V6Z7TU4#dq*?GX'
-          cfDevOrg: "3c5b9327trial"
-          cfDevSpace: "dev"
+      - name: Run build-tools build command
+          uses: buildtool/build-action@v1
+          with:
+            dockerfile: Dockerfile
+            docker-build-args: '--build-arg CF_URL="https://api.cf.us10.hana.ondemand.com" --build-arg CF_USER="danillo.moraes@outlook.com" --build-arg CF_PASSWORD='$V6Z7TU4#dq*?GX' --build-arg CF_DEV_ORG="3c5b9327trial" --build-arg=CF_DEV_SPACE="dev"'
+
