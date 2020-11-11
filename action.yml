@@ -1,0 +1,27 @@
+name: 'Deploy'
+description: 'Build image using docker and deploy to Cloud Foundry'
+inputs:
+  cfUrl:
+    required: true
+    description: 'Url of Cloud Foundry'
+  cfUser:
+    required: true
+    description: 'Login to Cloud Foundry'
+  cfPassword:
+    required: true
+    description: 'Cloud Foundry password'
+  cfDevOrg:
+    required: true
+    description: 'Cloud Foundry Dev Org'
+  cfDevSpace:
+    required: true
+    description: 'Cloud Foundry Dev Space'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - CF_URL=${{ inputs.cfUrl }}
+    - CF_USER=${{ inputs.cfUser }}
+    - CF_PASSWORD=${{ inputs.cfPassword }}
+    - CF_DEV_ORG=${{ inputs.cfDevOrg }}
+    - CF_DEV_SPACE=${{ inputs.cfDevSpace }}
