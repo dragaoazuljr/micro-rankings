@@ -17,11 +17,7 @@ inputs:
     required: true
     description: 'Cloud Foundry Dev Space'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  env:
-    -CF_URL: ${{ inputs.cfUrl }}
-    -CF_USER: ${{ inputs.cfUser }}
-    -CF_PASSWORD: ${{ inputs.cfPassword }}
-    -CF_DEV_ORG: ${{ inputs.cfDevOrg }}
-    -CF_DEV_SPACE: ${{ inputs.cfDevSpace }}
+  using: 'composite'
+  steps:
+    - run: docker build -t micro-rankings --build-arg CF_URL=${{ inputs.cfUrl }} --build-arg CF_USER="${{ inputs.cfUser }}" --build-arg CF_PASSWORD='${{ inputs.cfPassword }}' --build-arg CF_DEV_ORG="${{ inputs.cfDevOrg }}" --build-arg=CF_DEV_SPACE="${{ inputs.cfDevSpace }}" Dockerfile
+      shell: bash
