@@ -20,8 +20,8 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - CF_URL=${{ inputs.cfUrl }}
-    - CF_USER=${{ inputs.cfUser }}
-    - CF_PASSWORD=${{ inputs.cfPassword }}
-    - CF_DEV_ORG=${{ inputs.cfDevOrg }}
-    - CF_DEV_SPACE=${{ inputs.cfDevSpace }}
+    - CF_URL={{ inputs.cfUrl }}
+    - CF_USER={{ inputs.cfUser }}
+    - CF_PASSWORD={{ inputs.cfPassword }}
+    - CF_DEV_ORG={{ inputs.cfDevOrg }}
+    - CF_DEV_SPACE={{ inputs.cfDevSpace }}
