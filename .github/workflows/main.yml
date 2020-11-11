@@ -5,9 +5,7 @@ jobs:
     name: Deploy to cloud foundry
     steps:
       - name: checkout
-        uses: actions/checkout@v2
-        with:
-          repository: dragaoazuljr/micro-rankings@master 
+        uses: actions/checkout@v2 
       - name: Deploy
         id: deploy
         uses: dragaoazuljr/micro-rankings@master
