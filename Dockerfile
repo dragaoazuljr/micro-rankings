@@ -1,15 +1,5 @@
 FROM ubuntu
 
-ARG CF_URL
-
-ARG CF_USER
-
-ARG CF_PASSWORD
-
-ARG CF_DEV_ORG
-
-ARG CF_DEV_SPACE
-
 RUN echo $CF_URL
 
 # make sure apt is up to date
