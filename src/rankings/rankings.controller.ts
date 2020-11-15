@@ -44,6 +44,21 @@ export class RankingsController {
         }
     }
 
+    @MessagePattern('consultar-ranking-jogador')
+    async consultarRankingsJogador(
+        @Payload() data: any,
+        @Ctx() context: RmqContext
+    ) {
+        const channel = context.getChannelRef();
+        const message = context.getMessage();
+
+        try {
+            return await this._rankingService.consultarRankingPorJogador(data.idJogador);
+        } finally {
+            channel.ack(message);
+        }
+    }
+
     validateErrorMessageToClearQueue(error: any, channel, message) {
         this.ackErrors.map(async err => {
             if(error.message.includes(err)){

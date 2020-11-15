@@ -59,6 +59,42 @@ export class RankingsService {
         }
     }
 
+    async consultarRankingPorJogador(idJogador){
+        const resgistrosRanking = await this._rankingModel
+            .find()
+            .where('jogador')
+            .equals(idJogador)
+            .exec();
+
+        const resultado = _(resgistrosRanking)
+        .groupBy('jogador')
+        .map((items: Ranking[], key) => ({
+            jogador: key,
+            historico: _.countBy(items, 'evento'),
+            pontos: _.sumBy(items.filter(item => item.evento == EventoEnum.VITORIA), 'pontos') - _.sumBy(items.filter((item) => item.evento == EventoEnum.DERROTA), 'pontos')
+        }))
+        .value()
+
+        const rankingResponseList: RankingResponse[] = [];
+        resultado.map((item, i) => {
+            const rankingResponse: RankingResponse = {};
+
+            rankingResponse.jogador = item.jogador;
+            rankingResponse.posicao = i + 1;
+            rankingResponse.pontuacao = item.pontos;
+
+            const historico: Historico = {};
+
+            historico.derrotas = item.historico.DERROTA ? item.historico.DERROTA : 0;
+            historico.vitorias = item.historico.VITORIA ? item.historico.VITORIA : 0;
+
+            rankingResponse.historicoPartidas = historico;
+            rankingResponseList.push(rankingResponse);
+        })
+
+        return rankingResponseList.length ? rankingResponseList[0]: {} 
+    }
+
     async consultarRankings(idCategoria, dataRef) {
         if (!dataRef) {
             dataRef = momentTimezone().tz("America/Sao_Paulo").format('YYYY-MM-DD');
